@@ -15,10 +15,11 @@ const { Producto} = require('../models');
 
     // 
     const  [total, productos] = await Promise.all([
-      Producto.countDocuments({usuario: user_id}),
+      Producto.countDocuments({usuario: user_id, estado: true}),
       Producto.find({  
                     lista: id,
-                    usuario: user_id
+                    usuario: user_id,
+                    estado: true
                   })
         .skip(Number(desde))
         .limit(Number(limite))
