@@ -4,6 +4,7 @@ const { Lista, Usuario, Producto } = require("../models");
 const validarPermiso = async(req, res, next) => {
 
     const usuario = req.header('user-id');
+    // const usuario = req.body.uid;
     const {id} = req.params;
 
     try {

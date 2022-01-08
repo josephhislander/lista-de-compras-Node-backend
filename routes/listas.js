@@ -23,8 +23,7 @@ router.get('/', [
     validarJWT,
     validarPermiso,
     validarCampos
-] , obtenerListas
-);
+] , obtenerListas);
 
 //Crear Listas - privado - cualquier persona con un token valido
 router.post('/', [

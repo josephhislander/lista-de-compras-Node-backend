@@ -40,13 +40,13 @@ const { Producto} = require('../models');
     const {nombre, lista, cantidad} = req.body;
     const Nombre = nombre.toUpperCase();
 
-    const productoDB = await Producto.find( {nombre: Nombre, 
-                                             lista: lista});
-    if(productoDB[0]) {
-      return res.status(400).json({
-                msg: `El producto ${productoDB[0].nombre}, ya existe`
-            });
-    }
+    // const productoDB = await Producto.find( {nombre: Nombre, 
+    //                                          lista: lista});
+    // if(productoDB[0]) {
+    //   return res.status(400).json({
+    //             msg: `El producto ${productoDB[0].nombre}, ya existe`
+    //         });
+    // }
 
     // Generar la data a guardar
 

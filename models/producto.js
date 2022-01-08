@@ -4,7 +4,6 @@ const ProductoSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'El nombre es obligaorio'],
-        unique: true
     },
 
     cantidad: {

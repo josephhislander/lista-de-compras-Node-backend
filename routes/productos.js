@@ -18,7 +18,7 @@ const {
     validarCampos, 
     validarJWT,
     validarPermiso
-    }  = require('../middlewares')
+    }  = require('../middlewares');
 
 const router = Router();
 
@@ -37,7 +37,7 @@ router.get('/:id', [
 router.post('/', [
     validarJWT,
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('lista', 'El id de lista es obligatorio').not().isEmpty(),
+    // check('lista', 'El id de lista es obligatorio').not().isEmpty(),
     validarCampos
 ], crearProducto);
 

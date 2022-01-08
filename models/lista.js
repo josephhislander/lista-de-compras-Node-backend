@@ -3,7 +3,7 @@ const {Schema, model} = require('mongoose');
 const ListaSchema = Schema({
     nombre: {
         type: String,
-        required: [true, 'El nombre es obligaorio'],
+        required: [true, 'El nombre es obligaorio']
     },
 
     fecha:{
@@ -21,6 +21,13 @@ const ListaSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: true
+    },
+    productos: {
+        type: Array
+    },
+    presupuesto: {
+        type: Number,
+        default: 0
     }
 });
 

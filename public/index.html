@@ -5,55 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="google-signin-client_id" content="153363051251-ns1m9qcf2e3qrm2j0ho9ipcq18ta6eah.apps.googleusercontent.com">
-
+  
     <title>Google Signin</title>
 </head>
 <body>
+
+    
     <h1>Google Signin</h1>
     <hr>
 
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div id="g_id_onload"
+         data-client_id="153363051251-ns1m9qcf2e3qrm2j0ho9ipcq18ta6eah.apps.googleusercontent.com"
+         data-auto_prompt="false"
+         data-callback="handleCredentialResponse">
+      </div>
+      <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+      </div>
 
-    <a href="#" onclick="signOut();">Sign out</a>
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+      <button id='google_signout'>
+          Signout
+      </button>
 
-    <script> 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-        var url = ( window.location.hostname.includes('localhost'))
-                ? 'http://localhost:8080/api/auth/google'
-                : 'https://restserverbackendbasico.herokuapp.com/api/auth/google'
+    <script>
+        function handleCredentialResponse(response) {
+        
+        //Id-token
+        console.log( 'id-token', response.credential);
 
-        function onSignIn(googleUser) {
+        const body = { id_token: response.credential};
 
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-            var id_token = googleUser.getAuthResponse().id_token;
-            const data = { id_token}
-
-            fetch(url, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify( data)
-            })
-            .then( resp => resp.json())
-            .then( data => console.log('Nuestro server', data))
-            .catch(console.log);
-
+        fetch('http://localhost:8080/api/auth/google', {
+          method: 'POST',
+          headers: {
+             'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+          .then(resp => resp.json())
+          .then( resp => {
+            console.log(resp)
+            localStorage.setItem( 'email', resp.usuario.correo)
+          })
+          .catch( console.warn)
 
         }
 
-         function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-            console.log('User signed out.');
-            });
+        const button = document.getElementById('google_signout');
+        button.onclick = () => {
+           google.accounts.id.disableAutoSelect();
+
+           google.accounts.id.revoke(localStorage.getItem('email'), done => {
+             localStorage.clear();
+             location.reload();
+           });
+
         }
-    </script>
+
+      </script>
+
 </body>
 </html>
