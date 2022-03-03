@@ -7,17 +7,17 @@ const { Producto} = require('../models');
   const obtenerProductosDeLista = async(req = request, res = response) => {
 
     const user_id = req.header('user-id');
-    const {id} = req.params;
+    const list_id = req.header('list-id');
     // const objectId = mongoose.Types.ObjectId(user_id);
 
-    const { limite = 5, desde = 0 } = req.query;
+    const { limite = 20, desde = 0 } = req.query;
     // const query = { estado: true};
 
     // 
     const  [total, productos] = await Promise.all([
       Producto.countDocuments({usuario: user_id, estado: true}),
       Producto.find({  
-                    lista: id,
+                    lista: list_id,
                     usuario: user_id,
                     estado: true
                   })
@@ -85,13 +85,28 @@ const { Producto} = require('../models');
 
   const borrarProducto = async(req = request, res) => {
     
-  const { id} = req.params;
+    const producto_id = req.header('producto-id');
 
-  const producto = await Producto.findByIdAndUpdate( id, { estado : false} );
+  const producto = await Producto.findByIdAndUpdate( {_id : producto_id}, { estado : false} );
 
-    res.json(
-        producto
+    res.status(201).json({
+       msg: 'Producto eliminado',
+        producto}
     );
+  }
+
+  const borrarProductos = async(req= request, res) => {
+
+
+    const list_id = req.header('list-id');
+
+    const productos = await Producto.deleteMany({ lista: list_id });
+
+     res.status(201).json({
+        msg: "Eliminados",
+        productos
+    });
+
   }
 
 
@@ -102,6 +117,7 @@ const { Producto} = require('../models');
       obtenerProductosDeLista,
       crearProducto,
       actualizarProducto,
-      borrarProducto
+      borrarProducto,
+      borrarProductos
 
   }

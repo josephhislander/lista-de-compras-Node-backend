@@ -10,9 +10,18 @@ const ProductoSchema = Schema({
         type: Number,
         default: 1
     },
-    Precio: {
+    precio: {
         type: Number,
         default: 0
+    },
+    impuesto: {
+        type: Number,
+        default: 0
+    } 
+    ,
+    checked: {
+        type: Boolean,
+        default: false
     },
 
     estado: {

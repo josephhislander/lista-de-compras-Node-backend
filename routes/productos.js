@@ -5,7 +5,8 @@ const {
     crearProducto,
     obtenerProductosDeLista,
     actualizarProducto,
-    borrarProducto
+    borrarProducto,
+    borrarProductos
     } = require('../controllers/productos');
 
 
@@ -24,11 +25,20 @@ const router = Router();
 
 //Obtener productos de una lista - privado solo el usuario  que la creo
 
-router.get('/:id', [
+// router.get('/:id', [
+//     validarJWT,
+//     check('id', 'No es un id de Mongo válido').isMongoId(),
+//     validarPermiso,
+//     check('id').custom(usuarioTieneLista),
+//     validarCampos
+// ] , obtenerProductosDeLista
+// );
+
+router.get('/', [
     validarJWT,
-    check('id', 'No es un id de Mongo válido').isMongoId(),
+    // check('id', 'No es un id de Mongo válido').isMongoId(),
     validarPermiso,
-    check('id').custom(usuarioTieneLista),
+    // check('id').custom(usuarioTieneLista),
     validarCampos
 ] , obtenerProductosDeLista
 );
@@ -52,12 +62,19 @@ router.put('/:id', [
 );
 
 // //Borrar producto - privado - solo el usuario que la creo
-router.delete('/:id', [
+router.delete('/product', [
     validarJWT,
     validarPermiso,
-    check('id', 'No es un id de Mongo válido').isMongoId(),
+    // check('id', 'No es un id de Mongo válido').isMongoId(),
     validarCampos
 ], borrarProducto
+);
+
+router.delete('/', [
+    validarJWT,
+    validarPermiso,
+    validarCampos
+], borrarProductos
 );
 
 module.exports = router;
