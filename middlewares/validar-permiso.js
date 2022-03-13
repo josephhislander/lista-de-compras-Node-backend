@@ -2,14 +2,11 @@ const { Lista, Usuario, Producto } = require("../models");
 
 
 const validarPermiso = async(req, res, next) => {
-
     const usuario = req.header('user-id');
-    // const usuario = req.body.uid;
     const {id} = req.params;
 
     try {
         
-      
       // Comprobando que el usuario que solicita existe en DB
       const usuarioExiste = await Usuario.findById(usuario);
   
@@ -27,8 +24,6 @@ const validarPermiso = async(req, res, next) => {
               msg: 'Usuario no tiene listas'
           })
       }
-
-
       // Comprobando si la lista solicitada pertenece al usuario logeado
 
       const lista = await Lista.findById(id);
@@ -57,9 +52,6 @@ const validarPermiso = async(req, res, next) => {
 
       }
       
-      
-   
-
       next();
 
   } catch (error) {

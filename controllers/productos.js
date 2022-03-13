@@ -8,12 +8,7 @@ const { Producto} = require('../models');
 
     const user_id = req.header('user-id');
     const list_id = req.header('list-id');
-    // const objectId = mongoose.Types.ObjectId(user_id);
-
     const { limite = 20, desde = 0 } = req.query;
-    // const query = { estado: true};
-
-    // 
     const  [total, productos] = await Promise.all([
       Producto.countDocuments({usuario: user_id, estado: true}),
       Producto.find({  
@@ -30,8 +25,7 @@ const { Producto} = require('../models');
 
     res.json({
       total,
-      productos,
-      // objectId
+      productos
     });
   }
 
@@ -39,15 +33,6 @@ const { Producto} = require('../models');
 
     const {nombre, lista, cantidad} = req.body;
     const Nombre = nombre.toUpperCase();
-
-    // const productoDB = await Producto.find( {nombre: Nombre, 
-    //                                          lista: lista});
-    // if(productoDB[0]) {
-    //   return res.status(400).json({
-    //             msg: `El producto ${productoDB[0].nombre}, ya existe`
-    //         });
-    // }
-
     // Generar la data a guardar
 
     const data = {
@@ -108,10 +93,6 @@ const { Producto} = require('../models');
     });
 
   }
-
-
-
-
 
   module.exports = {
       obtenerProductosDeLista,

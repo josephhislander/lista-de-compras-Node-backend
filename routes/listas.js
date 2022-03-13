@@ -47,7 +47,6 @@ router.delete('/:id', [
     validarJWT,
     check('id', 'No es un id de Mongo válido').isMongoId(),
     validarPermiso,
-    // check('id').custom(existeCategoriaPorId),
     validarCampos
 ], borrarLista
 );

@@ -16,9 +16,6 @@ const esRoleValido = async(rol = '') => {
 
     if( existeEmail){
     throw new Error(`El email ${correo} ya esta registrado en la BD `)
-    // return res.status(400).json({
-    //   msg: ' Ese correo ya esta registrado'
-    // });
   }
 }
 

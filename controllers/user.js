@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt');
 
 const Usuario = require('../models/usuario');
 
-
-
   const usuariosGet = async(req = request, res = response) => {
 
     const { limite = 5, desde = 0 } = req.query;
@@ -72,10 +70,6 @@ const Usuario = require('../models/usuario');
        usuario
     );
   }
-
-
-
-
 
   module.exports = {
       usuariosGet,

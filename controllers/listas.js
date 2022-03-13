@@ -33,52 +33,10 @@ const {Lista} = require('../models');
   }
 
   const crearLista = async(req, res = response) => {
-
-  
     const nombre = req.body.nombre.toUpperCase();
     const user_id = req.body.uid;
- 
-    // const listaDB = await Lista.find( {nombre, 
-    //                                   usuario: user_id});
-    // console.log(listaDB);
-    // // if(listaDB.estado) {
-    // //   console.log('in true')
-    // // }
-    // // // if(listaDB[0]){
-    //   // if(listaDB[listaDB.length - 1].estado === true){
-    //   //   return res.status(401).json({
-    //   //                 msg: `La lista ${listaDB[0].nombre}, ya existe`
-    //   //             });
-
-    //   // }
-    // // }
-
-    // if(listaDB.find(lista => lista.estado === true)){
-    //   return res.status(401).json({
-    //                 msg: `La lista ${listaDB[0].nombre}, ya existe`
-    //             });
-
-    // }
-
     try {
-
-      // const lista;
-      // if(listaDB[0])
-      
-      // if(listaDB[0].estado === true){
-      //   return res.status(400).json({
-      //             msg: `La lista ${listaDB[0].nombre}, ya existe`
-      //         });
-      // }
-  
-      // if(listaDB[0].estado === false) {
-        // console.log('funciono')
-        // lista = await Lista.findByIdAndUpdate( id, {estado : true}, { new: true});
-      // }
-      // Generar la data a guardar
-  
       const data = {
-          // presupuesto: 0,
           nombre,
           usuario : user_id
       }
@@ -101,12 +59,10 @@ const {Lista} = require('../models');
   const actualizarLista = async(req, res) => {
 
     const {id} = req.params;
-    // const {_id, usuario, fecha, estado, ...data} = req.body;
     const data = {
       nombre: req.body.nombre.toUpperCase(),
       products: req.body.products,
       uid: req.body.uid,
-      // checked: req.body.checked,
       presupuesto: req.body.presupuesto
     }
 
@@ -136,10 +92,6 @@ const {Lista} = require('../models');
        lista
     );
   }
-
-
-
-
 
   module.exports = {
       obtenerListas,
